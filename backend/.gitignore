@@ -105,3 +105,6 @@ dist
 
 # Credentials file
 src/config/**.json
+
+#firebase admin key
+firebase-admin-key.json
