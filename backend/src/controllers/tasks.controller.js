@@ -1,4 +1,10 @@
-import { fetchTasks } from '../services/tasks.service.js'
+import {
+	addTask,
+	fetchTasks,
+	taskExists,
+	updateTask,
+	removeTask,
+} from '../services/tasks.service.js'
 
 export const getTasks = async (_req, res) => {
 	try {
@@ -6,7 +12,62 @@ export const getTasks = async (_req, res) => {
 		res.json({ tasks })
 	} catch (err) {
 		res.status(500).json({
-			error: 'There was an error while retreiving tasks',
+			message: 'There was an error while retreiving tasks',
+		})
+	}
+}
+
+export const createTask = async (req, res) => {
+	try {
+		const { body: task } = req
+		await addTask(task)
+		res.status(201).json(task)
+	} catch (err) {
+		res.status(500).json({
+			message: 'There was an error while creating task',
+		})
+	}
+}
+
+export const patchTask = async (req, res) => {
+	try {
+		const { body } = req
+		const { id } = req.params
+
+		const exists = await taskExists(id)
+		if (!exists) {
+			return res
+				.status(401)
+				.json({ message: `task ${id} does not exist` })
+		}
+
+		await updateTask(id, body)
+		res.status(204).send()
+	} catch (err) {
+		console.log(err)
+		res.status(500).json({
+			message: `There was an error while updating task`,
+		})
+	}
+}
+
+export const deleteTask = async (req, res) => {
+	try {
+		const { id } = req.params
+
+		const exists = await taskExists(id)
+		if (!exists) {
+			return res
+				.status(401)
+				.json({ message: `task ${id} does not exist` })
+		}
+
+		await removeTask(id)
+		res.status(204).send()
+	} catch (err) {
+		console.log(err)
+		res.status(500).json({
+			message: `There was an error while deleting task`,
 		})
 	}
 }
