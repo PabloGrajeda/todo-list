@@ -1,7 +1,8 @@
 import React from 'react'
 import { TaskCard } from './TaskCard'
+import BoxContainer from './BoxContainer'
 
-const TasksContainer = ({ tasks = [1] }) => {
+const TasksContainer = ({ tasks }) => {
 	if (!tasks?.length) {
 		return (
 			<p className='font-semibold text-center opacity-50'>
@@ -11,17 +12,26 @@ const TasksContainer = ({ tasks = [1] }) => {
 	}
 
 	return (
-		<div>
-			{tasks.map((task, index) => (
-				<TaskCard
-					key={index}
-					id='adasdasdasklñsahdfñlkh'
-					title='this is my first task'
-					description='this is the first description'
-					completed={false}
-					createdAt={new Date()}
-				/>
+		<div className='space-y-4'>
+			{tasks.map((task) => (
+				<TaskCard key={task.id} {...task} />
 			))}
+		</div>
+	)
+}
+
+export const TaskContainerSkeleton = () => {
+	return (
+		<div className='space-y-4'>
+			<BoxContainer
+				className={'bg-gray-100 animate-pulse h-32 border-none'}
+			/>
+			<BoxContainer
+				className={'bg-gray-100 animate-pulse h-32 border-none'}
+			/>
+			<BoxContainer
+				className={'bg-gray-100 animate-pulse h-32 border-none'}
+			/>
 		</div>
 	)
 }

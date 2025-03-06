@@ -4,6 +4,9 @@ import { TrashIcon } from 'lucide-react'
 import { format } from 'date-fns'
 
 export const TaskCard = ({ id, title, description, completed, createdAt }) => {
+	const parseCreatedAt = new Date(createdAt._seconds * 1000)
+	const formattedCreatedAt = format(parseCreatedAt, 'LLL d, yyyy p')
+
 	return (
 		<BoxContainer className={`shadow-none ${completed && 'bg-gray-100'}`}>
 			<div className='flex gap-2 justify-between items-start'>
@@ -37,7 +40,7 @@ export const TaskCard = ({ id, title, description, completed, createdAt }) => {
 
 					{/* CREATED DATE */}
 					<p className='text-xs text-gray-500'>
-						Created: {format(createdAt, 'LLL d, yyyy p')}
+						Created: {formattedCreatedAt}
 					</p>
 				</div>
 

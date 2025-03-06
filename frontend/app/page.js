@@ -1,6 +1,12 @@
 import BoxContainer from '@/components/BoxContainer'
 import TaskForm from '@/components/TaskForm'
-import TasksContainer from '@/components/TasksContainer'
+import TasksContainer, {
+	TaskContainerSkeleton,
+} from '@/components/TasksContainer'
+import { Suspense } from 'react'
+
+const fetchTasksResponse = await fetch(`${process.env.API_URL}/tasks`)
+const { tasks } = await fetchTasksResponse.json()
 
 const Home = () => {
 	return (
@@ -13,7 +19,9 @@ const Home = () => {
 
 			<BoxContainer>
 				<h2 className='font-semibold text-xl'>Tasks</h2>
-				<TasksContainer />
+				<Suspense fallback={<TaskContainerSkeleton />}>
+					<TasksContainer tasks={tasks} />
+				</Suspense>
 			</BoxContainer>
 		</div>
 	)
