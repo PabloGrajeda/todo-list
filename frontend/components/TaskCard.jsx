@@ -5,10 +5,27 @@ import { format } from 'date-fns'
 import axios from 'axios'
 import { showToast } from '@/utils'
 
-export const TaskCard = ({ id, title, description, completed, createdAt }) => {
+export const TaskCard = ({
+	id,
+	title,
+	description,
+	completed,
+	createdAt,
+	setTasks,
+}) => {
 	const parseCreatedAt = new Date(createdAt._seconds * 1000)
 	const formattedCreatedAt = format(parseCreatedAt, 'LLL d, yyyy p')
 	const [isCompleted, setIsCompleted] = useState(completed)
+
+	const handleDelete = async () => {
+		try {
+			await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/tasks/${id}`)
+			setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id))
+			showToast('success', 'Task deleted successfully!')
+		} catch (err) {
+			showToast('error', 'Oops, something went wrong!')
+		}
+	}
 
 	const handleChange = async (event) => {
 		const { checked } = event.target
@@ -63,7 +80,10 @@ export const TaskCard = ({ id, title, description, completed, createdAt }) => {
 					</p>
 				</div>
 
-				<button className='p-4 hover:bg-red-100 rounded-lg transition-all ml-auto'>
+				<button
+					className='p-4 hover:bg-red-100 rounded-lg transition-all ml-auto'
+					onClick={handleDelete}
+				>
 					<TrashIcon size={16} color='red' />
 				</button>
 			</div>

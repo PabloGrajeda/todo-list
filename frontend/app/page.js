@@ -33,7 +33,7 @@ const Home = () => {
 
 			<BoxContainer>
 				<h2 className='font-semibold text-xl'>Tasks</h2>
-				<TasksContainer tasks={tasks} />
+				<TasksContainer tasks={tasks} setTasks={setTasks} />
 			</BoxContainer>
 		</div>
 	)

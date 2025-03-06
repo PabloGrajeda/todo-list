@@ -2,7 +2,7 @@ import React from 'react'
 import { TaskCard } from './TaskCard'
 import BoxContainer from './BoxContainer'
 
-const TasksContainer = ({ tasks }) => {
+const TasksContainer = ({ tasks, setTasks }) => {
 	if (!tasks?.length) {
 		return (
 			<p className='font-semibold text-center opacity-50'>
@@ -14,7 +14,7 @@ const TasksContainer = ({ tasks }) => {
 	return (
 		<div className='space-y-4'>
 			{tasks.map((task) => (
-				<TaskCard key={task.id} {...task} />
+				<TaskCard key={task.id} {...task} setTasks={setTasks} />
 			))}
 		</div>
 	)
