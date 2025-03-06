@@ -26,9 +26,10 @@ Save the file as firebase-admin-key.json in the project root (or another locatio
 
 Create a .env file in the root directory and add:
 
+```
 FIREBASE_CREDENTIALS=./firebase-admin-key.json
 PORT=3001
-
+```
 4️⃣ Start the Server
 
 ``npm run server``
