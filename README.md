@@ -35,3 +35,22 @@ PORT=3001
 ``npm run server``
 
 The server will run on http://localhost:3001/ as default.
+
+## ⚙️ TODO React APP
+#### Getting Started
+
+1️⃣ Install Dependencies
+
+``npm install``
+
+2️⃣ Create a .env file in the root directory and add:
+
+```
+NEXT_PUBLIC_API_URL=http://localhost:3001/v1
+```
+3️⃣ Start the Application
+
+``npm run dev``
+
+The application will run on http://localhost:3000/ as default.
+
