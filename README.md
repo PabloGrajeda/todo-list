@@ -27,8 +27,7 @@ Save the file as firebase-admin-key.json in the project root (or another locatio
 Create a .env file in the root directory and add:
 
 FIREBASE_CREDENTIALS=./firebase-admin-key.json
-FIREBASE_DATABASE_URL=https://your-project-id.firebaseio.com
-PORT=3000
+PORT=3001
 
 4️⃣ Start the Server
 
