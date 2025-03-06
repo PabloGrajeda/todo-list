@@ -24,13 +24,13 @@ export const TaskContainerSkeleton = () => {
 	return (
 		<div className='space-y-4'>
 			<BoxContainer
-				className={'bg-gray-100 animate-pulse h-32 border-none'}
+				className={'bg-gray-100 animate-pulse h-32 m-2 border-none'}
 			/>
 			<BoxContainer
-				className={'bg-gray-100 animate-pulse h-32 border-none'}
+				className={'bg-gray-100 animate-pulse h-32 m-2 border-none'}
 			/>
 			<BoxContainer
-				className={'bg-gray-100 animate-pulse h-32 border-none'}
+				className={'bg-gray-100 animate-pulse h-32 m-2 border-none'}
 			/>
 		</div>
 	)

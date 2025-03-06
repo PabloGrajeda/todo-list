@@ -1,9 +1,9 @@
 import {
 	addTask,
 	fetchTasks,
-	taskExists,
 	updateTask,
 	removeTask,
+	getTaskById,
 } from '../services/tasks.service.js'
 
 export const getTasks = async (_req, res) => {
@@ -20,8 +20,10 @@ export const getTasks = async (_req, res) => {
 export const createTask = async (req, res) => {
 	try {
 		const { body: task } = req
-		await addTask(task)
-		res.status(201).json(task)
+		const { id } = await addTask(task)
+		const newTask = await getTaskById(id)
+
+		res.status(201).json({ id: newTask.id, ...newTask.data() })
 	} catch (err) {
 		res.status(500).json({
 			message: 'There was an error while creating task',
@@ -34,8 +36,8 @@ export const patchTask = async (req, res) => {
 		const { body } = req
 		const { id } = req.params
 
-		const exists = await taskExists(id)
-		if (!exists) {
+		const task = await getTaskById(id)
+		if (!task.exists) {
 			return res
 				.status(401)
 				.json({ message: `task ${id} does not exist` })
@@ -55,8 +57,8 @@ export const deleteTask = async (req, res) => {
 	try {
 		const { id } = req.params
 
-		const exists = await taskExists(id)
-		if (!exists) {
+		const task = await getTaskById(id)
+		if (!task.exists) {
 			return res
 				.status(401)
 				.json({ message: `task ${id} does not exist` })

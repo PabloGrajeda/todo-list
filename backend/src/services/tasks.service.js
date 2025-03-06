@@ -10,17 +10,17 @@ export const fetchTasks = async () => {
 	return tasks
 }
 
-export const taskExists = async (id) => {
+export const getTaskById = async (id) => {
 	const document = await collection.doc(id).get()
-	return document.exists
+	return document
 }
 
 export const addTask = async (task) => {
-	await collection.add({
+	const response = await collection.add({
 		...task,
 		createdAt: new Date(),
 	})
-	return task
+	return { id: response.id, ...task }
 }
 
 export const updateTask = async (id, newTask) => {
